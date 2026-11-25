@@ -10,7 +10,13 @@ const ago = (t) => { const m = Math.round((Date.now() - t) / 60000); return m < 
 
 function Graph({ notes, current, onOpen }) {
   const [hover, setHover] = useState(null)
-  const W = 640, H = 420
+  const box = useRef(null)
+  const [size, setSize] = useState([900, 520])
+  useEffect(() => {
+    const m = () => box.current && setSize([Math.max(320, box.current.clientWidth), Math.max(300, box.current.clientHeight)])
+    m(); window.addEventListener('resize', m); return () => window.removeEventListener('resize', m)
+  }, [])
+  const [W, H] = size
   const edges = useMemo(() => {
     const byTitle = new Map(notes.map((n) => [slug(n.title), n.id]))
     const e = []
@@ -18,12 +24,12 @@ function Graph({ notes, current, onOpen }) {
     return e
   }, [notes])
   const key = notes.map((n) => n.id).join() + '|' + edges.map((e) => e.join('>')).join()
-  const pos = useMemo(() => layout(notes, edges, W, H), [key])
+  const pos = useMemo(() => layout(notes, edges, W, H), [key, W, H])
   const at = (id) => pos[notes.findIndex((n) => n.id === id)]
   const near = new Set(); const act = hover || current
   edges.forEach(([a, b]) => { if (a === act) near.add(b); if (b === act) near.add(a) })
   return (
-    <svg viewBox={`0 0 ${W} ${H}`} className="h-full w-full" role="group" aria-label="Graph of linked notes">
+    <div ref={box} className="h-full w-full"><svg viewBox={`0 0 ${W} ${H}`} width={W} height={H} role="group" aria-label="Graph of linked notes">
       {edges.map(([a, b], i) => { const p = at(a), q = at(b); const on = a === act || b === act
         return <line key={i} x1={p.x} y1={p.y} x2={q.x} y2={q.y} stroke={on ? '#f2b441' : '#2f4439'} strokeWidth={on ? 2 : 1.2} /> })}
       {notes.map((n, i) => { const p = pos[i]; const isCur = n.id === current; const on = isCur || n.id === hover || near.has(n.id)
@@ -34,7 +40,7 @@ function Graph({ notes, current, onOpen }) {
             <text y={-16 - deg * 2.5} textAnchor="middle" fill={on ? '#e8efe9' : '#8fa597'} fontSize="13" style="font-family:Inter,sans-serif">{n.title}</text>
           </g>)
       })}
-    </svg>
+    </svg></div>
   )
 }
 
