@@ -1,0 +1,24 @@
+@import "tailwindcss";
+:root { --bg:#0f1713; --panel:#16211b; --line:#27382f; --ink:#e8efe9; --mute:#8fa597; --amber:#f2b441; --mint:#6fd1a0; }
+html, body { background: var(--bg); color: var(--ink); font-family: 'Inter', system-ui, sans-serif; height: 100%; }
+.serif { font-family: 'Newsreader', Georgia, serif; }
+.mono { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+.prose-w { font-family: 'Newsreader', Georgia, serif; font-size: 18px; line-height: 1.65; }
+.prose-w h1 { font-size: 2rem; font-weight: 600; margin: 0 0 .6em; line-height: 1.15 }
+.prose-w h2 { font-size: 1.45rem; font-weight: 600; margin: 1.3em 0 .4em }
+.prose-w h3 { font-size: 1.15rem; font-weight: 600; margin: 1.1em 0 .3em; color: var(--amber) }
+.prose-w p { margin: .6em 0 }
+.prose-w ul, .prose-w ol { margin: .6em 0; padding-left: 1.4em }
+.prose-w ul { list-style: disc } .prose-w ol { list-style: decimal }
+.prose-w ul.tasks { list-style: none; padding-left: 0 }
+.prose-w blockquote { border-left: 3px solid var(--amber); padding-left: 1em; color: var(--mute); font-style: italic; margin: .8em 0 }
+.prose-w code { font-family: 'JetBrains Mono', monospace; font-size: .8em; background: #20302a; padding: .1em .4em; border-radius: 4px }
+.prose-w pre { background: #0b110e; border: 1px solid var(--line); padding: 14px; border-radius: 10px; overflow-x: auto; margin: .8em 0 }
+.prose-w pre code { background: none; padding: 0 }
+.prose-w a { color: var(--mint); text-decoration: underline }
+.prose-w a.wiki { color: var(--amber); text-decoration: none; border-bottom: 1px dashed var(--amber); cursor: pointer }
+.prose-w a.wiki.missing { color: #ef8c8c; border-color: #ef8c8c }
+.prose-w hr { border: 0; border-top: 1px solid var(--line); margin: 1.4em 0 }
+.prose-w input[type=checkbox] { accent-color: var(--amber); margin-right: .5em; width: 1em; height: 1em; cursor: pointer }
+::-webkit-scrollbar { width: 10px; height: 10px } ::-webkit-scrollbar-thumb { background: #2b3f34; border-radius: 6px }
+button:focus-visible, textarea:focus-visible, input:focus-visible, a:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px }
